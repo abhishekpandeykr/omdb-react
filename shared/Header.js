@@ -5,7 +5,7 @@ import { fade, makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   title: {
     display: "none",
-    marginTop: "8px",
+    marginTop: "24px",
     marginLeft: "8px",
     cursor: "pointer",
     [theme.breakpoints.up("sm")]: {
@@ -17,11 +17,16 @@ const useStyles = makeStyles((theme) => ({
     height: "80px",
     display: "flex",
     flexDirection: "row",
+    alignItems: "baseline",
+    justifyContent: "space-between",
   },
   input: {
     justifyContent: "center",
-    marginLeft: "60px",
-    marginBottom: "15px",
+    marginLeft: "600px",
+    color: "white",
+  },
+  button: {
+    float: "right",
     color: "white",
   },
 }));
@@ -45,7 +50,12 @@ const Header = ({ onChange, onClick }) => {
         onChange={onChange}
         className={classes.input}
       />
-      <Button onClick={() => onClick("/my-watch-list")}>My Content</Button>
+      <Button
+        className={classes.button}
+        onClick={() => onClick("/my-watch-list")}
+      >
+        My Content
+      </Button>
     </AppBar>
   );
 };
