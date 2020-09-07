@@ -26,7 +26,10 @@ const App = () => {
   const [currentMovie, setCurrentMovie] = useState("all");
   const [loading, setLoading] = useState(false);
   const [myMovies, setMyMovies] = useState([]);
-  const [snackBar, setSnackBar] = useState(false);
+  const [snackBar, setSnackBar] = useState({
+    isVisible: false,
+    error: false,
+  });
   let timeout;
 
   useEffect(() => {
@@ -54,10 +57,18 @@ const App = () => {
     navigate(`${value}`);
   };
 
-  const addToWatchList = (movie) => {
-    setSnackBar(true);
-    myMovies.push(movie);
-    setTimeout(() => setSnackBar(false), 2000);
+  const addToWatchList = (selectedMovie) => {
+    const dup = myMovies.filter(
+      (movie) => movie.imdbID === selectedMovie.imdbID
+    );
+    setSnackBar({ isVisible: true, error: dup.length ? true : false });
+    if (!dup.length) {
+      myMovies.push(selectedMovie);
+      setTimeout(() => setSnackBar({ isVisible: false }), 2000);
+    } else {
+      setTimeout(() => setSnackBar({ error: true, isVisible: false }), 3000);
+    }
+    console.log(dup, myMovies);
   };
 
   return (
@@ -78,7 +89,7 @@ const App = () => {
           )}
           <MyWatchList path="my-watch-list" myMovies={myMovies} />
         </Router>
-        <Toaster snackBar={snackBar} />
+        <Toaster {...snackBar} />
       </Container>
     </>
   );

@@ -17,7 +17,6 @@ const useStyles = makeStyles({
 });
 
 export default function MovieCard({ movie, addToWatchList, showAddContent }) {
-  console.log(movie, addToWatchList);
   const classes = useStyles();
   return (
     <Grid item xs={12} sm={4}>
