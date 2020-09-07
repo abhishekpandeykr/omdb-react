@@ -1,5 +1,5 @@
 import React from "react";
-import { AppBar, Typography, Input } from "@material-ui/core";
+import { AppBar, Typography, Input, Button } from "@material-ui/core";
 import { fade, makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
     display: "none",
     marginTop: "8px",
     marginLeft: "8px",
+    cursor: "pointer",
     [theme.breakpoints.up("sm")]: {
       display: "block",
     },
@@ -25,11 +26,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = ({ onChange }) => {
+const Header = ({ onChange, onClick }) => {
   const classes = useStyles();
   return (
     <AppBar position="static" className={classes.heading}>
-      <Typography variant="h6" className={classes.title}>
+      <Typography
+        variant="h6"
+        className={classes.title}
+        onClick={() => onClick("/")}
+      >
         OMDB Data Base
       </Typography>
       <Input
@@ -40,6 +45,7 @@ const Header = ({ onChange }) => {
         onChange={onChange}
         className={classes.input}
       />
+      <Button onClick={() => onClick("/my-watch-list")}>My Content</Button>
     </AppBar>
   );
 };

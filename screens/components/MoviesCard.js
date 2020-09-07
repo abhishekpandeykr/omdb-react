@@ -1,13 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
+
+import { Box, Grid } from "@material-ui/core";
 import MovieCard from "./MovieCard";
 
 const useStyles = makeStyles({
@@ -15,23 +9,38 @@ const useStyles = makeStyles({
     flexGrow: 1,
     marginTop: "40px",
   },
+  noDatFound: {
+    margin: "0 auto",
+  },
 });
 
-export default function MoviesCard(movies) {
+export default function MoviesCard({ movies, addToWatchList, showAddContent }) {
   const classes = useStyles();
-  console.log(movies);
 
   const renderMovies = (movies) => {
-    return movies.movies.map((movie) => (
-      <MovieCard {...movie} key={Math.random()} />
+    return movies.map((movie) => (
+      <MovieCard
+        movie={movie}
+        key={Math.random()}
+        addToWatchList={addToWatchList}
+        showAddContent={showAddContent}
+      />
     ));
   };
 
   return (
     <Grid container spacing={3} className={classes.root}>
-      {movies && movies.movies && movies.movies.length
-        ? renderMovies(movies)
-        : "No Data Found"}
+      {movies && movies.length ? (
+        renderMovies(movies)
+      ) : (
+        <Box
+          component="div"
+          className={classes.noDatFound}
+          display={{ xs: "block", md: "block" }}
+        >
+          No Data Found
+        </Box>
+      )}
     </Grid>
   );
 }

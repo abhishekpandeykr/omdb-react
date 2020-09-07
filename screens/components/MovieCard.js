@@ -16,7 +16,8 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MovieCard(movie) {
+export default function MovieCard({ movie, addToWatchList, showAddContent }) {
+  console.log(movie, addToWatchList);
   const classes = useStyles();
   return (
     <Grid item xs={12} sm={4}>
@@ -35,10 +36,17 @@ export default function MovieCard(movie) {
             </Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions>
-          <Button size="small" color="primary">
-            Add to Watchlist
-          </Button>
+        <CardActions style={{ display: "flex", flexDirection: "column" }}>
+          <Button disabled>{movie.Title}</Button>
+          {showAddContent ? (
+            <Button
+              size="small"
+              color="primary"
+              onClick={() => addToWatchList(movie)}
+            >
+              Add to My Content
+            </Button>
+          ) : null}
         </CardActions>
       </Card>
     </Grid>
